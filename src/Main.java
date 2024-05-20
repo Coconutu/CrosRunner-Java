@@ -1,5 +1,14 @@
+import javax.swing.*;
+import java.util.ArrayList;
+
 public class Main {
+    static JFrame fereastra;
+    static JPanel panou;
+    static JLabel eticheta;
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        fereastra=new JFrame("Inscriere concurenti");
+
+
+
     }
 }
