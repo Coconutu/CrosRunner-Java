@@ -72,9 +72,13 @@ public class Fereastra extends JFrame implements ActionListener {
         textAfisareConcurenti = new TextArea();
         textAfisareConcurenti.setFont(fontulMeu);
         panouLista.add(textAfisareConcurenti);
-
+        CititorFisier cititorFisier=new CititorFisier();
 
         textAfisareConcurenti.append("Nume/Prenume--->Varsta" + "\n\n");
+        textAfisareConcurenti.setText(cititorFisier.continutFisier.toString());
+
+
+
 
         butonSalvareInFisier.addActionListener(new ActionListener() {
             @Override
