@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,10 +18,34 @@ public class Fereastra extends JFrame implements ActionListener {
     TextField textNume;
     TextField textVarsta;
     JButton butonAdaugare;
-    TextArea textAfisareConcurenti;
+    static TextArea textAfisareConcurenti;
     JButton butonSalvareInFisier;
 
     ArrayList<String> listaConcurenti = new ArrayList<String>();
+
+
+    public static  void incarcaDateDinFisier() {
+        textAfisareConcurenti.setText("Nume/Prenume--->Varsta" + "\n\n");
+        try {
+        FileReader fileReader = new FileReader("concurenti.csv");
+        BufferedReader bufferedReader = null;
+
+
+
+            bufferedReader = new BufferedReader(fileReader);
+            String inString;
+            while ((inString = bufferedReader.readLine()) !=null) {
+                textAfisareConcurenti.append(inString);
+                textAfisareConcurenti.append("\n");
+            }
+            bufferedReader.close();
+            fileReader.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
 
 
     public Fereastra() {
@@ -27,7 +53,7 @@ public class Fereastra extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setExtendedState(MAXIMIZED_BOTH);
-        setVisible(true);
+
         setLayout(new BorderLayout(10, 10));
 
         panouComponente = new JPanel();
@@ -72,32 +98,27 @@ public class Fereastra extends JFrame implements ActionListener {
         textAfisareConcurenti = new TextArea();
         textAfisareConcurenti.setFont(fontulMeu);
         panouLista.add(textAfisareConcurenti);
-        CititorFisier cititorFisier=new CititorFisier();
 
-        textAfisareConcurenti.append("Nume/Prenume--->Varsta" + "\n\n");
-        textAfisareConcurenti.setText(cititorFisier.continutFisier.toString());
-
-
+        incarcaDateDinFisier();
 
 
         butonSalvareInFisier.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                FileWriter fileWriter=null;
+                FileWriter fileWriter = null;
                 try {
-                    fileWriter = new FileWriter("concurenti.csv",true);
+                    fileWriter = new FileWriter("concurenti.csv", true);
 
-                    for (String concurent :listaConcurenti)
-                    {
-                        fileWriter.append(concurent+"\n");
+                    for (String concurent : listaConcurenti) {
+                        fileWriter.append(concurent + "\n");
                     }
                     fileWriter.close();
                     JOptionPane.showMessageDialog(null, "Fisierul 'concurenti.csv' a fost actualizat cu succes!");
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
-
+                incarcaDateDinFisier();
 
             }
         });
@@ -118,11 +139,12 @@ public class Fereastra extends JFrame implements ActionListener {
 
         });
 
-
+        setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
     }
+
 }
