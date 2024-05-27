@@ -17,7 +17,7 @@ public class Fereastra extends JFrame implements ActionListener {
     Font fontulMeu = new Font("Arial", Font.BOLD, 20);
     TextField textNume;
     TextField textVarsta;
-    JButton butonAdaugare;
+    JButton butonAdaugare,butonStergere;
     static TextArea textAfisareConcurenti;
     JButton butonSalvareInFisier;
 
@@ -26,6 +26,7 @@ public class Fereastra extends JFrame implements ActionListener {
 
     public static  void incarcaDateDinFisier() {
         textAfisareConcurenti.setText("Nume/Prenume--->Varsta" + "\n\n");
+        textAfisareConcurenti.setText("___________________________________________");
         try {
         FileReader fileReader = new FileReader("concurenti.csv");
         BufferedReader bufferedReader = null;
@@ -85,9 +86,19 @@ public class Fereastra extends JFrame implements ActionListener {
         add(panouLista, BorderLayout.CENTER);
 
         butonAdaugare = new JButton("Adaugare Concurent");
+        butonAdaugare.setBackground(Color.GREEN);
         butonAdaugare.setFont(fontulMeu);
         panouComponente.add(new Label(""));
         panouComponente.add(butonAdaugare);
+
+        butonStergere = new JButton("Stergere Concurent");
+        butonStergere.setBackground(Color.RED);
+        butonStergere.setFont(fontulMeu);
+        panouComponente.add(new Label(""));
+        panouComponente.add(butonStergere);
+
+
+
 
 
         butonSalvareInFisier = new JButton("Salvare *.csv");
